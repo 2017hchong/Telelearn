@@ -3,6 +3,7 @@ package com.hayunchong.telelearn;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,14 +12,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
+import com.parse.ParseException;
 
-import java.text.ParseException;
+import java.util.List;
+
 
 public class MainActivity extends Activity {
 
@@ -38,12 +40,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         //testView =( TextView )findViewById(R.id.zaire_text_view);
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "XaCWI8kHYDYI53zagf3xIo40tnyvneezSlW4YXdM", "fHEb6FetGkx3ltyinq38XGVYkVwZ159EB2c0xWpP");
-
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
+        Parse.initialize(this, "wivfJRhRHU17UY9JEuKAA97lDCNK6VSWvMFzFOUI", "QCongLrghtHPn3eKUzHmQPr7sxXeF4QokH9bTaJO");
 
 
         //SharedPreferences mSettings = getApplicationContext().getSharedPreferences("Settings", 0);
@@ -54,75 +51,74 @@ public class MainActivity extends Activity {
         //addListenerOnButton();
 
     }
+    public void newActivity()
+    {
+        Toast.makeText(MainActivity.this, "Login Pressed", Toast.LENGTH_SHORT).show();
+        Intent intent1 = new Intent(this, SecondActivity.class);
+        startActivity(intent1);
+
+    }
+
     public void showZaire( View view)
     {
         String button_test;
         button_test =((Button) view).getText().toString();
+
         final EditText user = (EditText) findViewById(R.id.usernameText);
         final EditText pass = (EditText) findViewById(R.id.passwordText);
         String username = user.getText().toString();
-        String password = pass.getText().toString();
-        ParseObject userCode = new ParseObject("userCode");
+        final String password = pass.getText().toString();
         if (button_test.equals("Login")) {
-            newPass = userCode.getString("password");
-            newUser = userCode.getString("username");
+            newPass = "";
+            newUser = "";
 
-            ParseQuery query = new ParseQuery("userCode");
-            query.getInBackground("qT1ikubt5d", new GetCallback<ParseObject>() {
-                public void done(ParseObject gameScore, ParseException e) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("userCode");
+            query.whereEqualTo("username", username);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> scoreList, ParseException e) {
                     if (e == null) {
-                        // Now let's update it with some new data. In this case, only cheatMode and score
-                        // will get sent to the Parse Cloud. playerName hasn't changed.
-                        newPass = gameScore.getString("password");
-                        newUser = gameScore.getString("username");
+                        Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                        if(scoreList.size()>0) {
+                            ParseObject first = scoreList.get(0);
+                            newPass = first.getString("password");
+                            newUser = first.getString("username");
+
+                            Log.d("score", "username " + newUser + " password " + newPass);
+
+                            if (newPass.equals(password))
+                                newActivity();
+                            else
+                                Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d("score", "Error: " + e.getMessage());
                     }
                 }
             });
-
-
-            if (newUser.equals(username) && newPass.equals(password)) {
+            /*
+            if (newPass.equals(password)) {
                 Toast.makeText(MainActivity.this, "Login Pressed", Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(this, SecondActivity.class);
                 startActivity(intent1);
             }
             else{
                 Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
-            }
+            }*/
+
         }
         else if (button_test.equals("Create Account"))
         {
-            /*
-            ParseQuery query = new ParseQuery("userCode");
-            query.getInBackground("qT1ikubt5d", new GetCallback<ParseObject>() {
-                public void done(ParseObject userCode, ParseException e) {
-                    if (e == null) {
                         // Now let's update it with some new data. In this case, only cheatMode and score
                         // will get sent to the Parse Cloud. playerName hasn't changed.
-                        userCode.put("username", user);
-                        userCode.put("cheatMode", pass);
-                        userCode.saveInBackground();
-                    }
-                }
-            });*/
 
-            ParseUser user = new ParseUser();
-            user.setUsername("my name");
-            user.setPassword("my pass");
-            user.setEmail("email@example.com");
 
-// other fields can be set just like with ParseObject
-            user.put("phone", "650-253-0000");
+            ParseObject userCode = new ParseObject("userCode");
+            userCode.put("username", username);
+            userCode.put("password", password);
+            userCode.saveInBackground();
 
-            user.signUpInBackground(new SignUpCallback() {
-                public void done(ParseException e) {
-                    if (e == null) {
-                        // Hooray! Let them use the app now.
-                    } else {
-                        // Sign up didn't succeed. Look at the ParseException
-                        // to figure out what went wrong
-                    }
-                }
-            });
 
             Toast.makeText(MainActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
             //Intent intent= new Intent(this,ThirdActivity.class);
