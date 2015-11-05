@@ -1,6 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/Score"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#00ffffff"
+        android:visibility="visible"
+        android:textSize="50dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:padding="50dp" />
+
+    <TextView
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:id="@+id/view1"
+        android:background="#ff66aa"
+        android:textSize="50dp"
+        android:paddingTop="20dp"
+        android:paddingLeft = "35dp"/>
+    <TextView
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:id="@+id/view2"
+        android:background="#dcb0ff"
+        android:layout_alignParentEnd = "true"
+        android:textSize="50dp"
+        android:paddingTop="20dp"
+        android:paddingLeft = "35dp"
+        />
+    <TextView
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:id="@+id/view3"
+        android:background="#80ffd1"
+        android:layout_alignParentBottom="true"
+        android:textSize="50dp"
+        android:paddingTop="20dp"
+        android:paddingLeft = "35dp"
+        />
+    <TextView
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:id="@+id/view4"
+        android:background="#ff9494"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd = "true"
+        android:textSize="50dp"
+        android:paddingTop="20dp"
+        android:paddingLeft = "35dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High Score: 0"
+        android:id="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Timer"
+        android:layout_alignBottom="@+id/view2"
+        android:layout_centerHorizontal="true"
+        android:textSize="50dp"
+        android:format="5:00" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:background="#64254b"
+        android:id="@+id/Start"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="#fff9f9"
+        android:textStyle="normal|bold"
+        android:layout_above="@+id/view3"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
