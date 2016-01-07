@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
     String newUser = "";
     String newPass = "";
 
+    public static String usernameFinal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +41,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         //testView =( TextView )findViewById(R.id.zaire_text_view);
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "wivfJRhRHU17UY9JEuKAA97lDCNK6VSWvMFzFOUI", "QCongLrghtHPn3eKUzHmQPr7sxXeF4QokH9bTaJO");
-
+        Parse.initialize(this, "kSLQof5wDngDBuyyJMDSQhQOo5DSgRbILEW5a8Zd", "T8oKlsSHJ6vtTyE7EXkJwBCH01OPp9i813NYqPG8");
 
         //SharedPreferences mSettings = getApplicationContext().getSharedPreferences("Settings", 0);
         //String cookieName = mSettings.getString("list", "");
@@ -70,7 +71,7 @@ public class MainActivity extends Activity {
         if (button_test.equals("Login")) {
             newPass = "";
             newUser = "";
-
+            usernameFinal = username;
             ParseQuery<ParseObject> query = ParseQuery.getQuery("userCode");
             query.whereEqualTo("username", username);
             query.findInBackground(new FindCallback<ParseObject>() {
@@ -81,6 +82,7 @@ public class MainActivity extends Activity {
                             ParseObject first = scoreList.get(0);
                             newPass = first.getString("password");
                             newUser = first.getString("username");
+
 
                             Log.d("score", "username " + newUser + " password " + newPass);
 
@@ -116,6 +118,7 @@ public class MainActivity extends Activity {
             ParseObject userCode = new ParseObject("userCode");
             userCode.put("username", username);
             userCode.put("password", password);
+            userCode.put("highScore", 0);
             userCode.saveInBackground();
 
 

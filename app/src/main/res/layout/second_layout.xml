@@ -19,39 +19,43 @@
         android:layout_centerHorizontal="true"
         android:padding="50dp" />
 
-    <TextView
+    <Button
         android:layout_height="100dp"
         android:layout_width="100dp"
         android:id="@+id/view1"
         android:background="#ff66aa"
+        android:onClick="showZaire"
         android:textSize="50dp"
         android:paddingTop="20dp"
         android:paddingLeft = "35dp"/>
-    <TextView
+    <Button
         android:layout_height="100dp"
         android:layout_width="100dp"
         android:id="@+id/view2"
         android:background="#dcb0ff"
+        android:onClick="showZaire"
         android:layout_alignParentEnd = "true"
         android:textSize="50dp"
         android:paddingTop="20dp"
         android:paddingLeft = "35dp"
         />
-    <TextView
+    <Button
         android:layout_height="100dp"
         android:layout_width="100dp"
         android:id="@+id/view3"
         android:background="#80ffd1"
+        android:onClick="showZaire"
         android:layout_alignParentBottom="true"
         android:textSize="50dp"
         android:paddingTop="20dp"
         android:paddingLeft = "35dp"
         />
-    <TextView
+    <Button
         android:layout_height="100dp"
         android:layout_width="100dp"
         android:id="@+id/view4"
         android:background="#ff9494"
+        android:onClick="showZaire"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd = "true"
         android:textSize="50dp"
@@ -68,15 +72,6 @@
         android:layout_centerHorizontal="true"
         android:textSize="15dp" />
 
-    <Chronometer
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Timer"
-        android:layout_alignBottom="@+id/view2"
-        android:layout_centerHorizontal="true"
-        android:textSize="50dp"
-        android:format="5:00" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,5 +84,15 @@
         android:textStyle="normal|bold"
         android:layout_above="@+id/view3"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="5:00"
+        android:id="@+id/timer"
+        android:layout_alignBottom="@+id/view1"
+        android:layout_centerHorizontal="true"
+        android:textSize="50dp" />
 
 </RelativeLayout>
