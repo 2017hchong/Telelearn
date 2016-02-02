@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * Created by 2017hchong on 10/26/2015.
  */
+//Hi
     public class SecondActivity extends Activity {
     int highScore, score = 0;
     Button view1, view2, view3, view4;
